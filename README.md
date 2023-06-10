@@ -132,6 +132,6 @@ Please make sure to reference this script or project in your communication.
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](License.txt) file for details.
 
 [Back to Top](#netsuite-user-access-inspection-script)
