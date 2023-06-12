@@ -125,9 +125,7 @@ define(['N/search', 'N/log'], function(search, log) {  // Includes necessary Sui
 
 This script is designed for use with Oracle NetSuite ERP. It has been tested on NetSuite 2021.2 but should work on any version that supports SuiteScript 2.0. While it's expected to work on later versions as well, if you encounter any issues, please report them in the [issues section](#contributing) of this repository.
 
-If you're unsure about the version
-
- of NetSuite you're using, you can check it by navigating to Home > Set Preferences > General > Defaults in your NetSuite account.
+If you're unsure about the version of NetSuite you're using, you can check it by navigating to Home > Set Preferences > General > Defaults in your NetSuite account.
 
 Please note that Oracle occasionally introduces breaking changes in major version updates. Always test scripts like these in a sandbox environment before deploying them in a production environment.
 
