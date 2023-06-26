@@ -127,13 +127,13 @@ This script is designed for use with Oracle NetSuite ERP. It has been tested on 
 
 If you're unsure about the version of NetSuite you're using, you can check it by navigating to Home > Set Preferences > General > Defaults in your NetSuite account.
 
-Please note that Oracle occasionally introduces breaking changes in major version updates. Always test scripts like these in a sandbox environment before deploying them in a production environment.
+Bear in mind that Oracle might, from time to time, incorporate changes that can cause disruptions in the course of major version updates. As such, it's essential to thoroughly validate scripts like these within a secure and isolated 'sandbox' environment prior to their deployment in a production setting.
 
 [Back to Top](#netsuite-user-access-inspection-script)
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Your pull requests are highly appreciated. Yet, for more significant modifications, I'd kindly ask you to initiate a conversation by opening an issue first. This way, we can collaborate in discussing your proposed changes and their potential impact.
 
 [Back to Top](#netsuite-user-access-inspection-script)
 
