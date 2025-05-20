@@ -21,7 +21,7 @@ This script provides an efficient way to inspect user access controls in NetSuit
 ### Update History
 - **May 2025**: Major update with improved memory management, added role ID capture, enhanced error handling with stack traces, optimized pagination, and better progress logging.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Getting Started
 
@@ -37,7 +37,7 @@ To use this script, you should have:
 1. Create a new SuiteScript file in your NetSuite File Cabinet. Name it "UserAccessControl.js" or something similar.
 2. Copy the content of the `UserAccessControl.js` file from this repository into the SuiteScript file you just created in NetSuite.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Deployment
 
@@ -46,7 +46,7 @@ To use this script, you should have:
 3. After saving the script record, deploy the script.
 4. You can schedule the script to run as needed or manually execute it to inspect user access control.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Script
 
@@ -136,7 +136,7 @@ define(['N/search', 'N/log'], function(search, log) {
 });
 ```
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Key Features
 
@@ -149,7 +149,7 @@ The script includes several optimizations and enhancements:
 5. **Robust Error Handling**: Enhanced error logging with stack traces for easier troubleshooting.
 6. **Extensibility**: Includes comments for adding additional filters when needed.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Compatibility
 
@@ -159,22 +159,23 @@ If you're unsure about the version of NetSuite you're using, you can check it by
 
 Bear in mind that Oracle might, from time to time, incorporate changes that can cause disruptions in the course of major version updates. As such, it's essential to thoroughly validate scripts like these within a secure and isolated 'sandbox' environment prior to their deployment in a production setting.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## Contributing
 
 Your pull requests are highly appreciated. Yet, for more significant modifications, I'd kindly ask you to initiate a conversation by opening an issue first. This way, we can collaborate in discussing your proposed changes and their potential impact.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## References
 
-- [NetSuite SuiteScript 2.0 API](https://www.netsuite.com/portal/developers/resources/apis/suitescript2.shtml)
+- [NetSuite SuiteScript 2.0 API](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4387172221.html)
+- [SuiteScript 2.0 Developer Guide](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1540391670.html)
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](License.txt) file for details.
 
-[Back to Top](#netsuite-user-access-inspection-script)
+[⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
