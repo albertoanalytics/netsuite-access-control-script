@@ -1,6 +1,6 @@
-# NetSuite User Access Inspection Script
+# NetSuite User Access Inspection Script (Updated May 2025)
 
-This repository contains a SuiteScript 2.0 script for inspecting user access controls in Oracle NetSuite. The script logs each user's internal ID, email, and role to the Execution Log.
+This repository contains an optimized SuiteScript 2.0 script for inspecting user access controls in Oracle NetSuite. The script logs each user's internal ID, email, role name, and role ID to the Execution Log with improved memory management and error handling. This is an updated version of the original script with significant performance and functionality enhancements.
 
 - [Project Description](#project-description)
 - [Getting Started](#getting-started)
@@ -8,15 +8,18 @@ This repository contains a SuiteScript 2.0 script for inspecting user access con
   - [Installation](#installation)
 - [Deployment](#deployment)
 - [Script](#script)
+- [Key Features](#key-features)
 - [Compatibility](#compatibility)
 - [Contributing](#contributing)
 - [References](#references)
-- [Contact](#contact)
 - [License](#license)
 
 ## Project Description
 
-This script provides an easy way to inspect user access controls in NetSuite. It queries for active users in the system and logs relevant access details (user's internal ID, email, and role) to the Execution Log.
+This script provides an efficient way to inspect user access controls in NetSuite. It queries for active users in the system and logs relevant access details (user's internal ID, email, role name, and role ID) to the Execution Log. The script includes optimizations for memory management, better error handling, and improved logging for monitoring execution progress.
+
+### Update History
+- **May 2025**: Major update with improved memory management, added role ID capture, enhanced error handling with stack traces, optimized pagination, and better progress logging.
 
 [Back to Top](#netsuite-user-access-inspection-script)
 
@@ -47,77 +50,104 @@ To use this script, you should have:
 
 ## Script
 
-Below is the SuiteScript 2.0 script:
+Below is the optimized SuiteScript 2.0 script (updated May 2025):
 
 ```javascript
 /**
- *@NApiVersion 2.x  // Specifies the SuiteScript API version being used
- *@NScriptType ScheduledScript  // Specifies the type of script
+ *@NApiVersion 2.x
+ *@NScriptType ScheduledScript
  */
-define(['N/search', 'N/log'], function(search, log) {  // Includes necessary SuiteScript modules
-  function execute(context) {  // The primary function that is called when the script is executed
+define(['N/search', 'N/log'], function(search, log) {
+  function execute() {  // Removed unused context parameter
     try {
       // Create a search for active employees
       var userSearch = search.create({
-        type: search.Type.EMPLOYEE,  // Specifies the record type to search
-        filters: [  // Defines search filters
+        type: search.Type.EMPLOYEE,
+        filters: [
           search.createFilter({
             name: 'isinactive',
             operator: search.Operator.IS,
-            values: ['F']  // Searching for active employees
+            values: ['F']
           })
+          // You can add additional filters here if needed to limit results
+          // Example: search.createFilter({name: 'supervisor', operator: search.Operator.ANYOF, values: [123]})
         ],
-        columns: [  // Specifies the columns to be returned in the search results
+        columns: [
           search.createColumn({ name: 'internalid' }),
           search.createColumn({ name: 'email' }),
           search.createColumn({ name: 'role' })
         ]
       });
 
-      var logMessages = [];  // Initializes an array to hold the log messages
-
-      // Execute the search and iterate over the results using pagination
-      var pagedData = userSearch.runPaged({pageSize: 1000});
-
+      // Reduce the page size for better performance and to avoid governance issues
+      var pagedData = userSearch.runPaged({pageSize: 100});
+      var totalPages = pagedData.pageRanges.length;
+      log.audit({
+        title: 'Processing Employee Records', 
+        details: 'Total pages to process: ' + totalPages
+      });
+      
       // Iterate over the page ranges
       pagedData.pageRanges.forEach(function(pageRange) {
         // Fetch each page of results
         var myPage = pagedData.fetch({index: pageRange.index});
-
+        var logMessages = [];  // Reset array for each page to manage memory better
+        
         // Iterate over each result in the page
         myPage.data.forEach(function(result) {
           // Get the values of the internalid, email, and role fields for each result
           var internalId = result.getValue({ name: 'internalid' });
           var email = result.getValue({ name: 'email' });
-          var role = result.getText({ name: 'role' });
-
+          var roleText = result.getText({ name: 'role' });
+          var roleId = result.getValue({ name: 'role' });  // Also get the role ID
+          
           // Add the details of each user to the logMessages array
           logMessages.push({
             'User ID': internalId,
             'Email': email,
-            'Role': role
+            'Role': roleText,
+            'Role ID': roleId
           });
         });
+        
+        // Log the details of users in this page
+        log.debug({
+          title: 'User Access Info - Page ' + (pageRange.index + 1) + ' of ' + totalPages,
+          details: JSON.stringify(logMessages)
+        });
       });
-
-      // Log the details of all users as a JSON string
-      log.debug({
-        title: 'User Access Info',
-        details: JSON.stringify(logMessages)
+      
+      log.audit({
+        title: 'Employee Search Complete',
+        details: 'Successfully processed all pages'
       });
-    } catch (error) {  // Catch and log any errors that occur during the execution of the script
+      
+    } catch (error) {
       log.error({
         title: 'Error running employee search',
-        details: error
+        details: error.message + '\n' + error.stack  // Add stack trace for better debugging
       });
     }
   }
-
+  
   return {
-    execute: execute  // This makes the execute function publicly available so it can be run by NetSuite
+    execute: execute
   };
 });
 ```
+
+[Back to Top](#netsuite-user-access-inspection-script)
+
+## Key Features
+
+The script includes several optimizations and enhancements:
+
+1. **Improved Memory Management**: Processes and logs data page by page instead of storing all results in memory.
+2. **Enhanced Role Information**: Captures both the role display name and internal ID for more complete information.
+3. **Optimized Pagination**: Uses a smaller page size (100 records per page) to help avoid governance limits.
+4. **Advanced Logging**: Includes audit logs for tracking script progress and per-page logging for better organization.
+5. **Robust Error Handling**: Enhanced error logging with stack traces for easier troubleshooting.
+6. **Extensibility**: Includes comments for adding additional filters when needed.
 
 [Back to Top](#netsuite-user-access-inspection-script)
 
@@ -140,18 +170,6 @@ Your pull requests are highly appreciated. Yet, for more significant modificatio
 ## References
 
 - [NetSuite SuiteScript 2.0 API](https://www.netsuite.com/portal/developers/resources/apis/suitescript2.shtml)
-
-[Back to Top](#netsuite-user-access-inspection-script)
-
-## Contact
-
-For any questions or issues related to this script, please contact the repository owner:
-
-- Name: Alberto F. Hernandez
-- Email: ah8664383@gmail.com
-- Linkedin: https://www.linkedin.com/in/albertoscode/
-
-Please make sure to reference this script or project in your communication.
 
 [Back to Top](#netsuite-user-access-inspection-script)
 
