@@ -169,8 +169,8 @@ Your pull requests are highly appreciated. Yet, for more significant modificatio
 
 ## References
 
-- [NetSuite SuiteScript 2.0 API](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4387172221.html)
-- [SuiteScript 2.0 Developer Guide](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_1540391670.html)
+- [SuiteScript 2.x API Introduction](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_4387172221.html)
+- [SuiteScript 2.x Developer Guide](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/book_14946590423.html)
 
 [⬆️ Back to Top](#netsuite-user-access-inspection-script-updated-may-2025)
 
